@@ -91,11 +91,11 @@ resource "aws_route_table_association" "public2" {
 }
 
 resource "aws_eip" "nat1" {
-  domain   = "vpc"
+  vpc = true
 }
 
 resource "aws_eip" "nat2" {
-  domain   = "vpc"
+  vpc = true
 }
 
 resource "aws_nat_gateway" "nat-main1" {
