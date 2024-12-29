@@ -3,7 +3,7 @@ locals {
 }
 
 resource "aws_vpc" "main" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block = var.vpc_cidr
 
   tags = {
     Name = var.env_code
@@ -77,6 +77,7 @@ resource "aws_eip" "nat" {
   
   tags = {
     Name = "${var.env_code}-nat-main ${count.index + 1}"
+
   }
 }
 
@@ -89,6 +90,7 @@ resource "aws_nat_gateway" "nat-main" {
 
   tags = {
     Name = "${var.env_code}-nat-main ${count.index + 1}"
+
   }
 
   # To ensure proper ordering, it is recommended to add an explicit dependency
@@ -110,6 +112,7 @@ resource "aws_route_table" "private" {
 
   tags = {
     Name = "${var.env_code}-private ${count.index + 1}"
+
   }
 }
 
