@@ -1,5 +1,4 @@
 locals {
-  
   availability_zones = ["eu-central-1a", "eu-central-1b", "eu-central-1c"]
 }
 
@@ -17,7 +16,7 @@ resource "aws_subnet" "public" {
  
   vpc_id     = aws_vpc.main.id
   cidr_block = var.public_cidr[count.index]
-  # availability_zone = local.availability_zones[count.index]
+  availability_zone = local.availability_zones[count.index]
 
   tags = {
     Name = "public ${count.index + 1}"
