@@ -1,3 +1,20 @@
+
+data "aws_ami" "amazonlinux" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-kernel-*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+}
+
+resource "aws_instance" "public" {
+  ami                         = data.aws_ami.amazonlinux.id
 resource "aws_instance" "public" {
   ami                         = "ami-0ecf75a98fe8519d7"
   associate_public_ip_address = true
@@ -14,7 +31,11 @@ resource "aws_instance" "public" {
 resource "aws_security_group" "public" {
   name        = "$(var.env_code)-public"
   description = "Allow inbound traffic"
+
+  vpc_id      = aws_vpc.main.id
+
   vpc_id         = aws_vpc.main.id
+
 
   ingress {
     description = "SSH from public"
@@ -37,7 +58,11 @@ resource "aws_security_group" "public" {
 }
 
 resource "aws_instance" "private" {
+
+  ami                         = data.aws_ami.amazonlinux.id
+
   ami                         = "ami-0ecf75a98fe8519d7"
+
   associate_public_ip_address = true
   instance_type               = "t3.nano"
   key_name                    = "main"
@@ -52,7 +77,11 @@ resource "aws_instance" "private" {
 resource "aws_security_group" "private" {
   name        = "$(var.env_code)-private"
   description = "Allow VPC traffic"
+
+  vpc_id      = aws_vpc.main.id
+
   vpc_id         = aws_vpc.main.id
+
 
   ingress {
     description = "SSH from VPC"
