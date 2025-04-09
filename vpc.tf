@@ -20,7 +20,7 @@ resource "aws_subnet" "public" {
  
 
   tags = {
-    Name = "${var.env_code}-public ${count.index + 1}"
+    Name = "${var.env_code}-public ${count.index}"
   }
 }
 
@@ -36,7 +36,7 @@ resource "aws_subnet" "private" {
  
 
   tags = {
-    Name = "${var.env_code}-private ${count.index + 1}"
+    Name = "${var.env_code}-private ${count.index}"
   }
 }
 
@@ -78,7 +78,7 @@ resource "aws_eip" "nat" {
 
 
   tags = {
-    Name = "${var.env_code}-nat-main ${count.index + 1}"
+    Name = "${var.env_code}-nat-main ${count.index}"
 
   }
 }
@@ -91,7 +91,7 @@ resource "aws_nat_gateway" "nat-main" {
   subnet_id     = aws_subnet.public[count.index].id
 
   tags = {
-    Name = "${var.env_code}-nat-main ${count.index + 1}"
+    Name = "${var.env_code}-nat-main ${count.index}"
 
   }
 
@@ -113,7 +113,7 @@ resource "aws_route_table" "private" {
   }
 
   tags = {
-    Name = "${var.env_code}-private ${count.index + 1}"
+    Name = "${var.env_code}-private ${count.index}"
 
   }
 }
