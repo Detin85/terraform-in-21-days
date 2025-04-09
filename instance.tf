@@ -1,4 +1,3 @@
-
 data "aws_ami" "amazonlinux" {
   most_recent = true
 
@@ -15,6 +14,7 @@ data "aws_ami" "amazonlinux" {
 
 resource "aws_instance" "public" {
   ami                         = data.aws_ami.amazonlinux.id
+  
 resource "aws_instance" "public" {
   ami                         = "ami-0ecf75a98fe8519d7"
   associate_public_ip_address = true
@@ -22,6 +22,7 @@ resource "aws_instance" "public" {
   key_name                    = "main"
   vpc_security_group_ids      = [aws_security_group.public.id]
   subnet_id                   = aws_subnet.public[0].id
+  user_data                   = file("/home/djani/Documents/Detin/Terraform_Tutorials/terraform-in-21-days/user_data.sh")
 
   tags = {
     Name = "$(var.env_code)-public"
@@ -31,11 +32,9 @@ resource "aws_instance" "public" {
 resource "aws_security_group" "public" {
   name        = "$(var.env_code)-public"
   description = "Allow inbound traffic"
-
   vpc_id      = aws_vpc.main.id
-
+  vpc_id      = aws_vpc.main.id
   vpc_id         = aws_vpc.main.id
-
 
   ingress {
     description = "SSH from public"
@@ -44,6 +43,16 @@ resource "aws_security_group" "public" {
     protocol    = "tcp"
     cidr_blocks = ["81.26.206.228/32"]
   }
+
+
+  ingress {
+    description = "HTTP from public"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
 
   egress {
     from_port   = 0
@@ -60,7 +69,7 @@ resource "aws_security_group" "public" {
 resource "aws_instance" "private" {
 
   ami                         = data.aws_ami.amazonlinux.id
-
+  ami                         = data.aws_ami.amazonlinux.id
   ami                         = "ami-0ecf75a98fe8519d7"
 
   associate_public_ip_address = true
@@ -77,11 +86,9 @@ resource "aws_instance" "private" {
 resource "aws_security_group" "private" {
   name        = "$(var.env_code)-private"
   description = "Allow VPC traffic"
-
   vpc_id      = aws_vpc.main.id
-
+  vpc_id      = aws_vpc.main.id
   vpc_id         = aws_vpc.main.id
-
 
   ingress {
     description = "SSH from VPC"
