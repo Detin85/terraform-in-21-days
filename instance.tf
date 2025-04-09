@@ -14,9 +14,6 @@ data "aws_ami" "amazonlinux" {
 
 resource "aws_instance" "public" {
   ami                         = data.aws_ami.amazonlinux.id
-  
-resource "aws_instance" "public" {
-  ami                         = "ami-0ecf75a98fe8519d7"
   associate_public_ip_address = true
   instance_type               = "t3.nano"
   key_name                    = "main"
