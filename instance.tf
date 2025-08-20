@@ -10,7 +10,6 @@
 #    name   = "virtualization-type"
 #    values = ["hvm"]
 #  }
-#}
 
 #resource "aws_instance" "public" {
 #  ami                         = data.aws_ami.amazonlinux.id
