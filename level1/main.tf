@@ -3,7 +3,7 @@ data "aws_availability_zones" "available" {
 }
 
 module "vpc" {
-  source = "./modules/vpc"
+  source = "../modules/vpc"
 
   env_code            = "Frankfurt"
   vpc_cidr            = "10.0.0.0/16"
