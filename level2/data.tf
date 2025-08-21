@@ -1,4 +1,4 @@
-data "terraform_remote_state" "level1" {
+data "detin-demo-v1" "level1" {
   backend = "s3"
   
   config = {
