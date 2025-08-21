@@ -3,7 +3,7 @@ data "terraform_remote_state" "level1" {
   
   config = {
     bucket         = "detin-demo-v1"
-    key            = "level1/terraform.tfstate"
+    key            = "level1.tfstate"
     region         = "eu-central-1"
   }
 }
